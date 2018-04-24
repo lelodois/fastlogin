@@ -27,6 +27,8 @@ public class SpringIntegrationLoginTest {
     public void loginDeveRetornarSucesso() throws Exception {
 
         String user = "lelo";
+        this.logout(user);
+
         LoginMessage loginMessage = new LoginMessage(user, "lelosenha");
 
         ResponseEntity<TokenMessage> firstLogin 
