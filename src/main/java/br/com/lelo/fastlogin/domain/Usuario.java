@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -15,10 +16,11 @@ import br.com.lelo.fastlogin.message.LoginMessage;
 
 @Entity
 @Table(name = "tb_usuario")
-public class Usuario extends BaseModel implements Serializable {
+public class Usuario implements Serializable {
 
     private static final long serialVersionUID = -7390966735433559979L;
 
+    @Id
     @NotNull
     @Column(nullable = false, unique = true, updatable = false)
     private String login;

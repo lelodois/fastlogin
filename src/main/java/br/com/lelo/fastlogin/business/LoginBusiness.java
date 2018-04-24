@@ -52,7 +52,7 @@ public class LoginBusiness {
     private TokenMessage loginWithDataBaseFallback(String login, String password, String ip) {
         Usuario model = this.getValidatedUser(login, password);
         String hash = RandomStringUtils.random(30);
-        acessoRepository.save(new Acesso(hash, model.getId(), ip));
+        acessoRepository.save(new Acesso(hash, model.getLogin(), ip));
         loginCacheBusiness.save(model, hash);
         return new TokenMessage(hash, "H2");
     }

@@ -55,7 +55,6 @@ public class SpringIntegrationTest {
         assertNotNull(response.getBody());
         assertNotNull(response.getBody().getLogin());
         assertNotNull(response.getBody().getPerfil());
-        assertNotNull(response.getBody().getId());
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 

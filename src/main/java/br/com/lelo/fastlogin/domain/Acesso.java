@@ -21,7 +21,7 @@ public class Acesso implements Serializable {
     private String id;
 
     @Column(nullable = false)
-    private Long usuarioId;
+    private String usuarioId;
 
     @Column(updatable = false, nullable = false)
     @Temporal(TemporalType.DATE)
@@ -37,7 +37,7 @@ public class Acesso implements Serializable {
     public Acesso() {
     }
 
-    public Acesso(String id, Long usuario, String ip) {
+    public Acesso(String id, String usuario, String ip) {
         this.ip = ip;
         this.id = id;
         this.usuarioId = usuario;
@@ -81,11 +81,11 @@ public class Acesso implements Serializable {
         return ip;
     }
 
-    public Long getUsuarioId() {
+    public String getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(Long usuarioId) {
+    public void setUsuarioId(String usuarioId) {
         this.usuarioId = usuarioId;
     }
 

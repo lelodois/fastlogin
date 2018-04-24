@@ -6,7 +6,6 @@ import br.com.lelo.fastlogin.domain.Usuario;
 
 public class UsuarioMessage {
 
-    private Long id;
     private String login;
     private String perfil;
 
@@ -14,17 +13,8 @@ public class UsuarioMessage {
     }
 
     public UsuarioMessage(@NotNull Usuario usuario) {
-        this.id = usuario.getId();
         this.login = usuario.getLogin();
         this.perfil = usuario.getPerfil().getNome();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getLogin() {
