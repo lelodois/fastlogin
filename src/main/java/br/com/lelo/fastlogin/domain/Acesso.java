@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_acesso")
@@ -18,7 +17,7 @@ public class Acesso implements Serializable {
     private static final long serialVersionUID = 1026372188568268935L;
 
     @Id
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(unique = true, updatable = false, nullable = false)
     private String id;
 
     @Column(nullable = false)
@@ -28,8 +27,7 @@ public class Acesso implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataLogin;
 
-    @NotNull
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column
     private String ip;
 
     public Acesso() {
@@ -40,6 +38,14 @@ public class Acesso implements Serializable {
         this.id = id;
         this.usuarioId = usuario;
         this.dataLogin = new Date();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setDataLogin(Date dataLogin) {
