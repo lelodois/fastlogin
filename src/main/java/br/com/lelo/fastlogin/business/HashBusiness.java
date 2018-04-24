@@ -9,11 +9,11 @@ import com.google.common.hash.Hashing;
 import br.com.lelo.fastlogin.domain.Usuario;
 
 @Component
-public class PasswordBusiness {
+public class HashBusiness {
 
     private static final long SALT = 999l;
 
-    private final HashFunction hash = Hashing.sha1();
+    private final HashFunction hash = Hashing.md5();
 
     public void setPasswordHash(Usuario usuario) {
         usuario.setPassword(this.getHash(usuario.getPassword()));

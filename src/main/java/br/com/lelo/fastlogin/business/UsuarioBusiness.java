@@ -18,7 +18,7 @@ public class UsuarioBusiness {
     private UsuarioRepository repository;
 
     @Autowired
-    private PasswordBusiness passwordBusiness;
+    private HashBusiness passwordBusiness;
 
     public Usuario findByLoginName(String login) {
         Optional<Usuario> usuario = repository.findOne(Example.of(new Usuario(login)));
