@@ -19,11 +19,12 @@ public class UsuarioBusiness {
     public UsuarioRepository repository;
 
     public String login(Usuario usuario, String ip) {
-        Optional<Usuario> optionalUsuario = repository.findOne(Example.of(usuario));
-        if (optionalUsuario.isPresent()) {
-            return RandomStringUtils.random(20);
-        }
-        throw new NotFoundItemException();
+        usuario = this.findOneByExample(usuario);
+        return RandomStringUtils.random(20);
+    }
+
+    public Usuario findByLoginName(Usuario usuario) {
+        return this.findOneByExample(usuario);
     }
 
     @Transactional(readOnly = false, rollbackFor = Exception.class)
@@ -32,4 +33,13 @@ public class UsuarioBusiness {
             repository.save(usuario);
         }
     }
+
+    private Usuario findOneByExample(Usuario usuario) {
+        Optional<Usuario> optionalUsuario = repository.findOne(Example.of(usuario));
+        if (optionalUsuario.isPresent()) {
+            return optionalUsuario.get();
+        }
+        throw new NotFoundItemException();
+    }
+
 }

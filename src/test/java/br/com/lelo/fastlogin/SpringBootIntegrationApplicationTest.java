@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.lelo.fastlogin.controller.LoginApi;
 import br.com.lelo.fastlogin.message.LoginMessage;
+import br.com.lelo.fastlogin.message.UsuarioMessage;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringRunner.class)
@@ -49,6 +50,16 @@ public class SpringBootIntegrationApplicationTest {
         ResponseEntity<String> response = restTemplate.postForEntity(LoginApi.URI, loginMessage, String.class);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    public void statusDeveRetornarUsuarioInfo() throws Exception {
+        ResponseEntity<UsuarioMessage> response = restTemplate.getForEntity(LoginApi.URI + "status/lelo", UsuarioMessage.class);
+        assertNotNull(response.getBody());
+        assertNotNull(response.getBody().getLogin());
+        assertNotNull(response.getBody().getPerfil());
+        assertNotNull(response.getBody().getId());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
 }

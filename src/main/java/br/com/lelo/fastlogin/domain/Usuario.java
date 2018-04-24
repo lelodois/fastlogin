@@ -2,8 +2,12 @@ package br.com.lelo.fastlogin.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +27,11 @@ public class Usuario extends BaseModel implements Serializable {
     @Column(nullable = false)
     private String password;
 
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_perfil")
+    private Perfil perfil;
+
     public Usuario() {
     }
 
@@ -31,12 +40,24 @@ public class Usuario extends BaseModel implements Serializable {
         this.password = loginMessage.getPassword();
     }
 
+    public Usuario(String login) {
+        this.login = login;
+    }
+
     public String getLogin() {
         return login;
     }
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+
+    public Perfil getPerfil() {
+        return perfil;
     }
 
     public String getPassword() {
