@@ -50,7 +50,8 @@ Instale o redis
 
  - http://localhost:9999/swagger-ui.html
 
-## Startup
-  É realizado uma carga grande de usuários para uma simples simulação de massa de dados
+## Observação
+  - É realizado uma carga grande de usuários para uma simples simulação de massa de dados;
+  - Optei por testes de integração, sei que de unidade é mais coeso, porém, neste cenário, prefiri testar o fluxo completo.
 
 
