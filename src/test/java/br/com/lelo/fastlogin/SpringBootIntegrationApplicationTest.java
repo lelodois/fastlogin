@@ -1,6 +1,7 @@
 package br.com.lelo.fastlogin;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -25,15 +26,24 @@ public class SpringBootIntegrationApplicationTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void deveRetornarNaoEncontrado() throws Exception {
+    public void loginDeveRetornarSucesso() throws Exception {
 
         LoginMessage loginMessage = new LoginMessage("lelo", "lelosenha");
+        ResponseEntity<String> response = restTemplate.postForEntity(LoginApi.URI, loginMessage, String.class);
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void loginDeveRetornarNaoEncontrado() throws Exception {
+
+        LoginMessage loginMessage = new LoginMessage("lelo", "lelosenha-errada");
         ResponseEntity<String> response = restTemplate.postForEntity(LoginApi.URI, loginMessage, String.class);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
-    public void deveRetornarErroDeValidacao() throws Exception {
+    public void loginDeveRetornarErroValidacao() throws Exception {
 
         LoginMessage loginMessage = new LoginMessage(" ", "lelosenha");
         ResponseEntity<String> response = restTemplate.postForEntity(LoginApi.URI, loginMessage, String.class);

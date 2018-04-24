@@ -6,6 +6,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.lelo.fastlogin.domain.Usuario;
 import br.com.lelo.fastlogin.exception.NotFoundItemException;
@@ -25,4 +26,10 @@ public class UsuarioBusiness {
         throw new NotFoundItemException();
     }
 
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public void save(Usuario... usuarios) {
+        for (Usuario usuario : usuarios) {
+            repository.save(usuario);
+        }
+    }
 }

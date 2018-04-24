@@ -1,7 +1,6 @@
 package br.com.lelo.fastlogin.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -18,17 +17,6 @@ public class BaseModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
-
-    @Column(name = "dt_cadastro", updatable = false, nullable = false)
-    private Date dataCadastro;
-
-    public final Date getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public final void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
 
     public final Long getId() {
         return id;
