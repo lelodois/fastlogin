@@ -7,10 +7,10 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import br.com.lelo.fastlogin.business.UsuarioBusiness;
