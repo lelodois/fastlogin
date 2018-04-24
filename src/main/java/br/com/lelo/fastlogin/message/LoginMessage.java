@@ -10,7 +10,6 @@ public class LoginMessage {
     private String password;
 
     public LoginMessage() {
-
     }
 
     public LoginMessage(@NotBlank String login, @NotBlank String password) {

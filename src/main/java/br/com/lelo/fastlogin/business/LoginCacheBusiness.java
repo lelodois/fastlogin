@@ -16,20 +16,20 @@ public class LoginCacheBusiness {
     private RedisRepository redisRepository;
 
     @Autowired
-    private HashBusiness passwordBusiness;
+    private HashBusiness hashBusiness;
 
     public Optional<String> login(String login, String password) {
         try {
-            String key = this.getCacheKey(login, password);
-            return Optional.of(redisRepository.get(key));
+            String chave = this.getCacheKey(login, password);
+            return Optional.ofNullable(redisRepository.get(chave));
         } catch (Exception e) {
             return Optional.empty();
         }
     }
 
-    public void salvarRedis(Usuario model, String hash) {
+    public void save(Usuario model, String hash) {
         try {
-            String key = this.getCacheKey(model.getLogin(), model.getLogin());
+            String key = this.getCacheKey(model.getLogin(), model.getPassword());
             redisRepository.put(key, hash);
         } catch (Exception e) {
             LoggerFactory.getLogger(LoginCacheBusiness.class).error(">>Redis disabled<<");
@@ -37,7 +37,7 @@ public class LoginCacheBusiness {
     }
 
     private String getCacheKey(String login, String password) {
-        return passwordBusiness.getHash(login) + "-" + password;
+        return hashBusiness.getHash(login + "-" + password);
     }
 
 }

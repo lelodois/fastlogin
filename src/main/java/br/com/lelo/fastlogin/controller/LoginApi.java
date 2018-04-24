@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lelo.fastlogin.message.LoginMessage;
+import br.com.lelo.fastlogin.message.TokenMessage;
 import br.com.lelo.fastlogin.message.UsuarioMessage;
 import br.com.lelo.fastlogin.service.LoginService;
 
@@ -26,15 +27,17 @@ public class LoginApi {
     private LoginService service;
 
     @PostMapping
-    public ResponseEntity<String> login(
+    public ResponseEntity<TokenMessage> login(
             @Validated @RequestBody(required = true) LoginMessage loginMessage,
             HttpServletRequest request) {
+        
         return ResponseEntity.ok(service.login(loginMessage, request.getRemoteHost()));
     }
 
     @GetMapping("status/{login}")
     public ResponseEntity<UsuarioMessage> status(
             @RequestBody(required = true) @PathVariable("login") String login) {
+        
         UsuarioMessage usuario = service.getUsuarioStatus(login);
         return ResponseEntity.ok(usuario);
     }

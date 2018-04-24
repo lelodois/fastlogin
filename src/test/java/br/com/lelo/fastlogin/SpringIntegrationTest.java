@@ -16,12 +16,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.lelo.fastlogin.controller.LoginApi;
 import br.com.lelo.fastlogin.message.LoginMessage;
+import br.com.lelo.fastlogin.message.TokenMessage;
 import br.com.lelo.fastlogin.message.UsuarioMessage;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SpringBootIntegrationApplicationTest {
+public class SpringIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -30,9 +31,20 @@ public class SpringBootIntegrationApplicationTest {
     public void loginDeveRetornarSucesso() throws Exception {
 
         LoginMessage loginMessage = new LoginMessage("lelo", "lelosenha");
-        ResponseEntity<String> response = restTemplate.postForEntity(LoginApi.URI, loginMessage, String.class);
-        assertNotNull(response.getBody());
+
+        ResponseEntity<TokenMessage> response = restTemplate.postForEntity(LoginApi.URI, loginMessage,
+                TokenMessage.class);
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody().getHash());
+        assertEquals("H2", response.getBody().getSource());
+
+        response = restTemplate.postForEntity(LoginApi.URI, loginMessage, TokenMessage.class);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertNotNull(response.getBody().getHash());
+        assertEquals("Talvez o redis não esteja habilitado", "Redis", response.getBody().getSource());
     }
 
     @Test

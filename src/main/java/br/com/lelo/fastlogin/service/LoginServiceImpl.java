@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import br.com.lelo.fastlogin.business.LoginBusiness;
 import br.com.lelo.fastlogin.business.UsuarioBusiness;
 import br.com.lelo.fastlogin.message.LoginMessage;
+import br.com.lelo.fastlogin.message.TokenMessage;
 import br.com.lelo.fastlogin.message.UsuarioMessage;
 
 @Service
@@ -18,7 +19,7 @@ public class LoginServiceImpl implements LoginService {
     private LoginBusiness loginBusiness;
 
     @Override
-    public String login(LoginMessage loginMessage, String ip) {
+    public TokenMessage login(LoginMessage loginMessage, String ip) {
         return loginBusiness.login(loginMessage, ip);
     }
 
