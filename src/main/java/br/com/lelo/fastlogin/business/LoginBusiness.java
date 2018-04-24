@@ -14,13 +14,13 @@ import br.com.lelo.fastlogin.repository.AcessoRepository;
 public class LoginBusiness {
 
     @Autowired
-    public AcessoRepository acessoRepository;
+    private AcessoRepository acessoRepository;
 
     @Autowired
-    public UsuarioBusiness usuarioBusiness;
+    private UsuarioBusiness usuarioBusiness;
 
     @Autowired
-    public PasswordBusiness passwordBusiness;
+    private PasswordBusiness passwordBusiness;
 
     public String login(LoginMessage loginMessage, String ip) {
         Usuario model = this.getUserByLoginPassword(loginMessage);

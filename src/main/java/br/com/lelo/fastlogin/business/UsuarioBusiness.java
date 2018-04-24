@@ -15,9 +15,10 @@ import br.com.lelo.fastlogin.repository.UsuarioRepository;
 public class UsuarioBusiness {
 
     @Autowired
-    public UsuarioRepository repository;
+    private UsuarioRepository repository;
+
     @Autowired
-    public PasswordBusiness passwordBusiness;
+    private PasswordBusiness passwordBusiness;
 
     public Usuario findByLoginName(String login) {
         Optional<Usuario> usuario = repository.findOne(Example.of(new Usuario(login)));
