@@ -41,4 +41,12 @@ public class LoginApi {
         UsuarioMessage usuario = service.getUsuarioStatus(login);
         return ResponseEntity.ok(usuario);
     }
+    
+    @PostMapping("sair/{login}")
+    public ResponseEntity<Object> logout(
+            @RequestBody(required = true) @PathVariable("login") String login) {
+        
+        service.logout(login);
+        return ResponseEntity.accepted().build();
+    }
 }

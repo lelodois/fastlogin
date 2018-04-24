@@ -39,6 +39,16 @@ public class LoginBusiness {
         return this.loginWithDataBaseFallback(loginMessage.getLogin(), password, ip);
     }
 
+    public void logout(String login) {
+        Usuario user = usuarioBusiness.findByLoginName(login);
+        Optional<String> loginCached = loginCacheBusiness.login(user.getLogin(), user.getPassword());
+        if (loginCached.isPresent()) {
+            loginCacheBusiness.logout(user);
+            acessoRepository.findById(loginCached.get())
+                            .ifPresent(item -> acessoRepository.save(item.logout()));
+        }
+    }
+
     private TokenMessage loginWithDataBaseFallback(String login, String password, String ip) {
         Usuario model = this.getValidatedUser(login, password);
         String hash = RandomStringUtils.random(30);
@@ -55,4 +65,5 @@ public class LoginBusiness {
         }
         throw new InvalidPasswordException();
     }
+
 }

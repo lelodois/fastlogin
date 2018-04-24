@@ -28,4 +28,9 @@ public class LoginServiceImpl implements LoginService {
         return new UsuarioMessage(usuarioBusiness.findByLoginName(login));
     }
 
+    @Override
+    public void logout(String login) {
+        loginBusiness.logout(login);
+    }
+
 }

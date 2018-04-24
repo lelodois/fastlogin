@@ -31,4 +31,12 @@ public class RedisRepository {
         }
     }
 
+    public void remove(String chave) throws RedisException {
+        try {
+            redisTemplate.delete(chave);
+        } catch (Throwable e) {
+            throw new RedisException();
+        }
+    }
+
 }

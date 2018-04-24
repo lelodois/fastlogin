@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.lelo.fastlogin.cache.RedisRepository;
 import br.com.lelo.fastlogin.domain.Usuario;
+import br.com.lelo.fastlogin.exception.RedisException;
 
 @Component
 public class LoginCacheBusiness {
@@ -32,6 +33,15 @@ public class LoginCacheBusiness {
             String key = this.getCacheKey(model.getLogin(), model.getPassword());
             redisRepository.put(key, hash);
         } catch (Exception e) {
+            LoggerFactory.getLogger(LoginCacheBusiness.class).error(">>Redis disabled<<");
+        }
+    }
+
+    public void logout(Usuario usuario) {
+        try {
+            String key = this.getCacheKey(usuario.getLogin(), usuario.getPassword());
+            redisRepository.remove(key);
+        } catch (RedisException e) {
             LoggerFactory.getLogger(LoginCacheBusiness.class).error(">>Redis disabled<<");
         }
     }

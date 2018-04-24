@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.lelo.fastlogin.domain.Acesso;
 
 @Repository
-public interface AcessoRepository extends JpaRepository<Acesso, Long> {
+public interface AcessoRepository extends JpaRepository<Acesso, String> {
 
 }

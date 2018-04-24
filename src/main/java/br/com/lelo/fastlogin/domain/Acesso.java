@@ -28,6 +28,10 @@ public class Acesso implements Serializable {
     private Date dataLogin;
 
     @Column
+    @Temporal(TemporalType.DATE)
+    private Date dataLogout;
+
+    @Column
     private String ip;
 
     public Acesso() {
@@ -40,6 +44,11 @@ public class Acesso implements Serializable {
         this.dataLogin = new Date();
     }
 
+    public Acesso logout() {
+        this.dataLogout = new Date();
+        return this;
+    }
+
     public String getId() {
         return id;
     }
@@ -50,6 +59,14 @@ public class Acesso implements Serializable {
 
     public void setDataLogin(Date dataLogin) {
         this.dataLogin = dataLogin;
+    }
+
+    public Date getDataLogout() {
+        return dataLogout;
+    }
+
+    public void setDataLogout(Date dataLogout) {
+        this.dataLogout = dataLogout;
     }
 
     public void setIp(String ip) {
