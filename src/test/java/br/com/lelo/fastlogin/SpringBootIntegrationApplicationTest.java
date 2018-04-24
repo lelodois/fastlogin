@@ -38,9 +38,17 @@ public class SpringBootIntegrationApplicationTest {
     @Test
     public void loginDeveRetornarNaoEncontrado() throws Exception {
 
-        LoginMessage loginMessage = new LoginMessage("lelo", "lelosenha-errada");
+        LoginMessage loginMessage = new LoginMessage("lelo-errado", "lelosenha");
         ResponseEntity<String> response = restTemplate.postForEntity(LoginApi.URI, loginMessage, String.class);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void loginDeveRetornarSenhaInvalida() throws Exception {
+
+        LoginMessage loginMessage = new LoginMessage("lelo", "lelosenha-errado");
+        ResponseEntity<String> response = restTemplate.postForEntity(LoginApi.URI, loginMessage, String.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     @Test
@@ -54,7 +62,8 @@ public class SpringBootIntegrationApplicationTest {
 
     @Test
     public void statusDeveRetornarUsuarioInfo() throws Exception {
-        ResponseEntity<UsuarioMessage> response = restTemplate.getForEntity(LoginApi.URI + "status/lelo", UsuarioMessage.class);
+        ResponseEntity<UsuarioMessage> response = restTemplate.getForEntity(LoginApi.URI + "status/lelo",
+                UsuarioMessage.class);
         assertNotNull(response.getBody());
         assertNotNull(response.getBody().getLogin());
         assertNotNull(response.getBody().getPerfil());
