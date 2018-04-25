@@ -6,17 +6,15 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.lelo.fastlogin.domain.Acesso;
 import br.com.lelo.fastlogin.domain.Usuario;
 import br.com.lelo.fastlogin.exception.InvalidPasswordException;
 import br.com.lelo.fastlogin.message.TokenMessage;
-import br.com.lelo.fastlogin.repository.AcessoRepository;
 
 @Component
 public class LoginDataBaseBusiness {
 
     @Autowired
-    private AcessoRepository acessoRepository;
+    private AcessoBusiness acessoBusiness;
 
     @Autowired
     private LoginCacheBusiness loginCacheBusiness;
@@ -32,8 +30,7 @@ public class LoginDataBaseBusiness {
     }
 
     public void logout(Optional<String> loginCached) {
-        acessoRepository.findById(loginCached.get())
-                        .ifPresent(item -> acessoRepository.save(item.logout()));
+        acessoBusiness.logout(loginCached);
     }
     
     private Usuario getValidatedUser(String login, String password) {
@@ -49,7 +46,7 @@ public class LoginDataBaseBusiness {
         new Thread(new Runnable() {
             public void run() {
                 loginCacheBusiness.save(model, hash);
-                acessoRepository.save(new Acesso(hash, model.getLogin(), ip));
+                acessoBusiness.save(hash, model.getLogin(), ip);
             }
         }).start();
     }
