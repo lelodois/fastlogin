@@ -18,6 +18,8 @@ public class RedisStarter {
 
     @PostConstruct
     public void go() throws RedisException {
+        redisRepository.flushAll();
+
         redisRepository.put("start", String.valueOf(new Date().getTime()));
     }
 

@@ -16,6 +16,10 @@ public class RedisRepository {
     @Qualifier("redisTemplate")
     private RedisTemplate<String, String> redisTemplate;
 
+    public void flushAll() {
+        redisTemplate.getConnectionFactory().getConnection().flushAll();
+    }
+
     public void put(String key, String value) throws RedisException {
         try {
             redisTemplate.opsForValue().set(key, value);
