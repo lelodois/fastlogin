@@ -26,10 +26,7 @@ public class SpringIntegrationLoginTest {
     @Test
     public void loginDeveRetornarSucesso() throws Exception {
 
-        String user = "lelo";
-        this.logout(user);
-
-        LoginMessage loginMessage = new LoginMessage(user, "lelosenha");
+        LoginMessage loginMessage = new LoginMessage("lelo", "lelosenha");
 
         ResponseEntity<TokenMessage> firstLogin 
                 = restTemplate.postForEntity(LoginApi.URI, loginMessage, TokenMessage.class);
@@ -40,11 +37,11 @@ public class SpringIntegrationLoginTest {
                 = restTemplate.postForEntity(LoginApi.URI, loginMessage, TokenMessage.class);
         this.verifyBySource(secondLogin, "Redis");
 
-        this.logout(user);
+        this.logout(secondLogin.getBody().getHash());
     }
 
-    private void logout(String user) {
-        String url = LoginApi.URI + "sair/" + user;
+    private void logout(String token) {
+        String url = LoginApi.URI + "sair/" + token;
         ResponseEntity<Object> responseLogout = restTemplate.postForEntity(url, null, Object.class);
         assertEquals(HttpStatus.ACCEPTED, responseLogout.getStatusCode());
     }

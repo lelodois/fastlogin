@@ -1,7 +1,5 @@
 package br.com.lelo.fastlogin.business;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +15,8 @@ public class AcessoBusiness {
     private AcessoRepository acessoRepository;
 
     @Transactional(rollbackFor = Exception.class, readOnly = false)
-    public void logout(Optional<String> loginCached) {
-        acessoRepository.findById(loginCached.get())
-                        .ifPresent(item -> acessoRepository.save(item.logout()));
-
+    public void logout(Acesso acesso) {
+        acessoRepository.save(acesso.logout());
     }
 
     @Transactional(rollbackFor = Exception.class, readOnly = false)

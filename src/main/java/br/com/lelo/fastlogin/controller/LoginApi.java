@@ -42,11 +42,11 @@ public class LoginApi {
         return ResponseEntity.ok(usuario);
     }
     
-    @PostMapping("sair/{login}")
+    @PostMapping("sair/{token}")
     public ResponseEntity<Object> logout(
-            @RequestBody(required = true) @PathVariable("login") String login) {
+            @RequestBody(required = true) @PathVariable("token") String token) {
         
-        service.logout(login);
+        service.logout(token);
         return ResponseEntity.accepted().build();
     }
 }

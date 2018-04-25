@@ -1,7 +1,5 @@
 package br.com.lelo.fastlogin.business;
 
-import java.util.Optional;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,10 +27,6 @@ public class LoginDataBaseBusiness {
         return new TokenMessage(hash, "H2");
     }
 
-    public void logout(Optional<String> loginCached) {
-        acessoBusiness.logout(loginCached);
-    }
-    
     private Usuario getValidatedUser(String login, String password) {
         Usuario exists = usuarioBusiness.findByLoginName(login);
 

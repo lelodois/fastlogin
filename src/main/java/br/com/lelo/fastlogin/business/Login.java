@@ -7,6 +7,6 @@ public interface Login {
 
     public TokenMessage login(LoginMessage loginMessage, String ip);
 
-    public void logout(String login);
+    public void logout(String token);
 
 }

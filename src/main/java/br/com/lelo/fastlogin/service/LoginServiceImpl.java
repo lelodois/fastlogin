@@ -10,7 +10,7 @@ import br.com.lelo.fastlogin.message.TokenMessage;
 import br.com.lelo.fastlogin.message.UsuarioMessage;
 
 @Service
-public class LoginServiceImpl implements LoginService {
+public class LoginServiceImpl implements LoginService, Login {
 
     @Autowired
     private UsuarioBusiness usuarioBusiness;
@@ -29,8 +29,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void logout(String login) {
-        loginBusiness.logout(login);
+    public void logout(String token) {
+        loginBusiness.logout(token);
     }
 
 }

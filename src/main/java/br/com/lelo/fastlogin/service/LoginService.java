@@ -10,6 +10,6 @@ public interface LoginService {
 
     public UsuarioMessage getUsuarioStatus(String login);
 
-    public void logout(String login);
+    public void logout(String token);
 
 }
