@@ -7,8 +7,8 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.lelo.fastlogin.common.PresentObject;
 import br.com.lelo.fastlogin.domain.Usuario;
-import br.com.lelo.fastlogin.exception.NotFoundItemException;
 import br.com.lelo.fastlogin.repository.UsuarioRepository;
 
 @Component
@@ -21,11 +21,12 @@ public class UsuarioBusiness {
     private HashBusiness passwordBusiness;
 
     public Usuario findByLoginName(String login) {
-        Optional<Usuario> usuario = repository.findOne(Example.of(new Usuario(login)));
-        if (usuario.isPresent()) {
-            return usuario.get();
-        }
-        throw new NotFoundItemException();
+        Optional<Usuario> optional = repository.findOne(Example.of(new Usuario(login)));
+        return new PresentObject<Usuario>().getOrThrow(optional);
+    }
+
+    public Usuario findById(String id) {
+        return new PresentObject<Usuario>().getOrThrow(repository.findById(id));
     }
 
     @Transactional(readOnly = false, rollbackFor = Exception.class)
