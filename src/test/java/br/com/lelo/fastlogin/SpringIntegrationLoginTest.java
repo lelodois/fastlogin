@@ -22,7 +22,7 @@ public class SpringIntegrationLoginTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
-
+ 
     @Test
     public void loginDeveRetornarSucesso() throws Exception {
 
@@ -37,13 +37,41 @@ public class SpringIntegrationLoginTest {
                 = restTemplate.postForEntity(LoginApi.URI, loginMessage, TokenMessage.class);
         this.verifyBySource(secondLogin, "Redis");
 
-        this.logout(secondLogin.getBody().getHash());
+        ResponseEntity<Object> responseLogout = this.logout(secondLogin.getBody().getHash());
+        assertEquals(HttpStatus.ACCEPTED, responseLogout.getStatusCode());
+    }
+    
+    @Test
+    public void loginDeveRetornarErroSenhaInvalida() throws Exception {
+
+        LoginMessage loginMessage = new LoginMessage("lelo", "lelosenha1");
+
+        ResponseEntity<TokenMessage> login 
+                = restTemplate.postForEntity(LoginApi.URI, loginMessage, TokenMessage.class);
+
+        assertEquals(HttpStatus.BAD_REQUEST, login.getStatusCode());
+    }
+    
+    @Test
+    public void loginDeveRetornarErroLoginNaoEncontrado() throws Exception {
+
+        LoginMessage loginMessage = new LoginMessage("lelo1", "lelosenha");
+
+        ResponseEntity<TokenMessage> login 
+                = restTemplate.postForEntity(LoginApi.URI, loginMessage, TokenMessage.class);
+
+        assertEquals(HttpStatus.NOT_FOUND, login.getStatusCode());
+    }
+    
+    @Test
+    public void logoutDeveRetornarErro() throws Exception {
+        ResponseEntity<Object> responseLogout = this.logout("qualquercoisa");
+        assertEquals(HttpStatus.NOT_FOUND, responseLogout.getStatusCode());
     }
 
-    private void logout(String token) {
+    private ResponseEntity<Object> logout(String token) {
         String url = LoginApi.URI + "sair/" + token;
-        ResponseEntity<Object> responseLogout = restTemplate.postForEntity(url, null, Object.class);
-        assertEquals(HttpStatus.ACCEPTED, responseLogout.getStatusCode());
+        return restTemplate.postForEntity(url, null, Object.class);
     }
 
     private void verifyBySource(ResponseEntity<TokenMessage> response, String source) {
