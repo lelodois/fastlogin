@@ -43,12 +43,10 @@ http://localhost:9999/swagger-ui.html
 
 ## Setup
 
-Instale o redis
- - docker run -d -p 6379:6379 redis redis-server
-
- - Run FastloginApplication.java  ou build do maven
-
- - http://localhost:9999/swagger-ui.html
+ - [Instale o docker]     - https://docs.docker.com/install/
+ - [Instale o redis]      - docker run -d -p 6379:6379 redis redis-server
+ - [Execute a aplicação]  - Run FastloginApplication.java  ou build do maven
+ - [Execute os endpoints] - http://localhost:9999/swagger-ui.html
 
 ## Observação
   - É realizado uma carga grande de usuários para uma simples simulação de massa de dados;
