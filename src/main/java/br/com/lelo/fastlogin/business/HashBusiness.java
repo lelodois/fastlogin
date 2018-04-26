@@ -1,5 +1,6 @@
 package br.com.lelo.fastlogin.business;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Charsets;
@@ -16,6 +17,9 @@ public class HashBusiness {
     private final HashFunction hash = Hashing.md5();
 
     public void setPasswordHash(Usuario usuario) {
+        if (ObjectUtils.allNotNull(usuario, usuario.getPassword()) == false)
+            throw new IllegalArgumentException();
+
         usuario.setPassword(this.getHash(usuario.getPassword()));
     }
 
