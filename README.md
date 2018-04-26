@@ -50,6 +50,5 @@ http://localhost:9999/swagger-ui.html
 
 ## Observação
   - É realizado uma carga grande de usuários para uma simples simulação de massa de dados;
-  - Optei por testes de integração, sei que de unidade é mais coeso, porém, neste cenário, prefiri testar o fluxo completo.
-
+  - Para execução dos testes (e da app) unitários de integração, é necessário o  **redis executando**.
 
