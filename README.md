@@ -49,6 +49,7 @@ http://localhost:9999/swagger-ui.html
  - [Execute os endpoints] - http://localhost:9999/swagger-ui.html
 
 ## Observação
-  - É realizado uma carga grande de usuários para uma simples simulação de massa de dados;
-  - Para execução dos testes (e da app) unitários de integração, é necessário o  **redis executando**.
+  
+ * É realizado uma carga grande de usuários para uma simples simulação de massa de dados.
+ * Para execução dos testes (e da app) unitários de integração, é necessário o  **redis executando**
 
